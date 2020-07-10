@@ -7,15 +7,15 @@ class WaterQuality {
   listenUserData(service) {
     return this.server.post('/chemsen/readings', (req, res) => {
       console.log(`Received HTTP message: ${JSON.stringify(req.body)}`);
-      const errors = this.checkInvalidData(req.body, ['timestamp', 'temperature', 'device']);
+      const errors = this.checkInvalidData(req.body, ['timestamp', 'temperature', 'location', 'device']);
 
       if (errors.length > 0)
         return res.status(400).json({ 'messages': errors });
 
       const deviceId = req.body.device;
       const timestamp = req.body.timestamp ? req.body.timestamp : new Date().getTime();
-
-      service.handleDeviceMessage(timestamp, req.body, deviceId);
+      const payload = { "temperature": req.body.temperature, "location": req.body.location }
+      service.handleDeviceMessage(timestamp, payload, deviceId);
       return res.status(204).send();
     });
   }
