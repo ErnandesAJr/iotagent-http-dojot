@@ -1,5 +1,5 @@
 class HttpAgent {
-
+  //TODO: Change this to receive the deviceName or instead of the deviceID
   constructor({ server, port, service, tenants }) {
     this.devices = {};
     this.server = server;
