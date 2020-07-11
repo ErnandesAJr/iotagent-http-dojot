@@ -2,9 +2,9 @@
 
 An IoT Agent is a custom microservice required to integrate a device that is not supported by default on Dojot.
 
-<p align="center">
+<!-- <p align="center">
 <img src="https://stash.atlantico.com.br/projects/IOT/repos/dojot-iot-agent-http/raw/docs/images/architecture.png?at=refs%2Fheads%2Fsafe2go" alt="drawing" width="900"/>
-</p>
+</p> -->
 
 
 ## Build Image
