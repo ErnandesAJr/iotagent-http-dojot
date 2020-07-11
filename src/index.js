@@ -5,7 +5,7 @@ var AgentHttp = require('./AgentHttp');
 
 let iotAgent = new IotAgent.IoTAgent();
 iotAgent.init().then(() => {
-  let httpServerPort = process.env.SERVER_PORT || 3124;
+  let httpServerPort = process.env.SERVER_PORT || 8002;
   let httpServer = new AgentHttp(iotAgent, httpServerPort);
   httpServer.init(() => {
 

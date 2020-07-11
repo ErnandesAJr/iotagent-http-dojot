@@ -14,14 +14,23 @@ function validateMandatoryFields(body, fields) {
 module.exports = class AgentHttp {
   constructor(iotAgent, port) {
     console.log('HTTP server will use port: ', port);
-    this._dojotDevicesInfo = {};
-    this._mapDojotIdToDeviceName = {};
     this._iotAgent = iotAgent;
     this._port = port;
     this._server = null;
+    /**
+     * Responsável por fazer a ligação entre o Nome do Device ( que é enviado) e o Id * dele na Dojot
+     */
+    this._dojotDevicesInfo = {};
+    this._mapDojotIdToDeviceName = {};
+
+
   }
 
   init() {
+    /**
+     * Acionadas somente para quando é criado, atualizado ou removido um dispositivo 
+     * Sempre que algumas dessas tasks forem feitas é feito o match entre o Id e Nome do dispositivo
+     */
     this._iotAgent.messenger.on('iotagent.device', 'device.create',
       (tenant, event) => { this._onCreateDevice(event) });
     this._iotAgent.messenger.on('iotagent.device', 'device.update',
@@ -33,7 +42,9 @@ module.exports = class AgentHttp {
 
     this._server = Express();
     this._server.use(bodyParser.json()); // for parsing application/json
-
+    /**
+     * Definição da URL que será feito a requisição ( SEM O TOKEN --_(* *)_--)
+     */
     this._server.post('/chemsen/readings', (req, res) => {
 
       const error = validateMandatoryFields(req.body, ['timestamp', 'data', 'device']);
@@ -116,7 +127,9 @@ module.exports = class AgentHttp {
       data,
       device: deviceName
     };
-
+    /**
+     *  Responsável por enviar para o dispositivo 
+     */
     this._iotAgent.updateAttrs(dojotDeviceInfo.deviceId,
       dojotDeviceInfo.tenant,
       jsonData,
