@@ -19,7 +19,7 @@ Then you need to regenerate the docker-compose.yml of the Dojot to include this 
 
 ```bash
 # cd ../docker-compose
-$ sudo docker-compose up
+$ sudo docker-compose up -d
 ```
 
 Wait some seconds and check its log:
